@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Optimization Results</title>
+</head>
+<body>
+    <h1>Optimization Results</h1>
+    <div>{{ output|safe }}</div>
+    <div><h2>Routes Map</h2><iframe src="{{ url_for('serve_static', filename='route_map.html') }}" width="100%" height="600"></iframe></div>
+</body>
+</html>
+
+

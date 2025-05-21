@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last-Mile Delivery Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Optimize E-commerce Last Mile Delivery</h1>
+    <form id="inputForm">
+        <label for="distanceMatrix">Upload Distance Matrix (Excel):</label>
+        <input type="file" id="distanceMatrix" name="dm" accept=".xlsx" required>
+
+        <label for="demands">Enter Demand for Each Location:</label>
+        <input type="text" id="demands" name="dmds" placeholder="e.g. 0,1,1,2,4,2,4,8,8,1,2" required>
+
+        <label for="vehicleCapacities">Enter Vehicle Capacities:</label>
+        <input type="text" id="vehicleCapacities" name="vc" placeholder="e.g. 15,15,15,15" required>
+
+        <label for="numVehicles">Number of Vehicles:</label>
+        <input type="number" id="numVehicles" name="nv" value="4" required>
+
+        <label for="depotIndex">Depot Index:</label>
+        <input type="number" id="depotIndex" name="di" value="0" required>
+
+        <label for="avgSpeed">Average Speed (km/h):</label>
+        <input type="number" id="avgSpeed" name="speed" placeholder="e.g. 60" required>
+
+        <button type="submit">Optimize Routes</button>
+    </form>
+
+    <div id="results">
+        <h2>Optimized Routes:</h2>
+        <pre id="output"></pre>
+    </div>
+</div>
+
+<script>
+    document.getElementById('inputForm').addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const formData = new FormData(this); // Automatically gather form data
+
+        // Send form data to the server using Fetch API
+        const response = await fetch('/optimize', {
+            method: 'POST',
+            body: formData
+        });
+
+        // Parse the response and display it in the results section
+        const output = await response.text();
+        document.getElementById('output').innerText = output;
+    });
+</script>
+
+</body>
+</html>
